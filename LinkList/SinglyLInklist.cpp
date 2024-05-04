@@ -11,23 +11,33 @@ public:
         this->data = data;
         this->next = NULL;
     }
+    ~Node()
+    {
+        int value = this->data;
+        if (this->next != NULL)
+        {
+            delete next;
+            this->next = NULL;
+        }
+        cout << "memory is free for node with data" << endl;
+    }
 };
 
-int insertAtHead(Node* &head, int d)
+int insertAtHead(Node *&head, int d)
 {
     // create a new node
     Node *temp = new Node(d);
     temp->next = head;
     head = temp;
 }
-int insertAtTrail(Node* &tail, int d)
+int insertAtTrail(Node *&tail, int d)
 {
     // create a new node
     Node *temp = new Node(d);
     tail->next = temp;
     tail = temp;
 }
-void insertAtPosition(Node* &head, Node* &trail,int position, int d)
+void insertAtPosition(Node *&head, Node *&trail, int position, int d)
 {
 
     if (position == 1)
@@ -43,8 +53,9 @@ void insertAtPosition(Node* &head, Node* &trail,int position, int d)
         cnt++;
     }
 
-    if(temp->next == NULL){
-        insertAtTrail(trail,d);
+    if (temp->next == NULL)
+    {
+        insertAtTrail(trail, d);
         return;
     }
     // create a new node
@@ -52,6 +63,34 @@ void insertAtPosition(Node* &head, Node* &trail,int position, int d)
     insertedNode->next = temp->next;
     temp->next = insertedNode;
 }
+// deletion of the nodedata
+void deletionAtPosition(int position, Node *&head)
+{
+    if (position == 1)
+    {
+        Node *temp = head;
+        head = head->next;
+        temp->next = NULL;
+        delete temp;
+    }
+    else
+    {
+        Node *curr = head;
+        Node *prev = NULL;
+
+        int cnt = 1;
+        while (cnt < position)
+        {
+            prev = curr;
+            curr = curr->next;
+            cnt++;
+        }
+        prev->next = curr->next;
+        curr->next = NULL;
+        delete curr;
+    }
+}
+
 void print(Node *&head)
 {
     Node *temp = head;
@@ -70,15 +109,26 @@ int main()
 
     Node *head = node1;
     Node *trail = node1;
+    // insert at tail
     insertAtTrail(trail, 12);
     insertAtTrail(trail, 13);
     print(head);
-
+    // insert at head;
     cout << endl;
     insertAtHead(head, 12);
     insertAtHead(head, 13);
     print(head);
 
-    insertAtPosition(head,trail, 6, 17);
+    insertAtPosition(head, trail, 6, 17);
     print(head);
+    cout << "Head data " << head->data << endl;
+    cout << "tail data " << trail->data << endl;
+
+    // delete at posintion
+    deletionAtPosition(5, head);
+    print(head);
+    cout << "Head data " << head->data << endl;
+
+    // it print the garvage value;
+    cout << "tail data " << trail->data << endl;
 }
