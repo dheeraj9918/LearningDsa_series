@@ -105,7 +105,7 @@ void deleteNode(Node *&head, int position)
         Node* curr= head;
         Node* previ = NULL;
         int cnt  =1;
-        while(cnt<position-1){
+        while(cnt<position){
             previ =curr;
             curr = curr->next;
             cnt++;
@@ -164,7 +164,7 @@ int main()
     insertAtPosition(head, tail, 7, 104);
     print(head);
 
-    deleteNode(head,8);
+    deleteNode(head,5);
     print(head);
     return 0;
 }
