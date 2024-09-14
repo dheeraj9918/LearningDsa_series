@@ -102,6 +102,21 @@ void print(Node *&head)
     cout << endl;
 }
 
+bool isCircularLinkList(Node* head){
+    if(head == NULL){
+        return true;
+    }
+
+    Node* temp = head->next;
+    while(temp != NULL && temp != head){
+        temp = temp->next;
+    }
+    if(temp == head){
+        return true;
+    }
+    return false;
+}
+
 int main()
 {
     Node *node1 = new Node(10);
@@ -113,22 +128,28 @@ int main()
     insertAtTrail(trail, 12);
     insertAtTrail(trail, 13);
     print(head);
-    // insert at head;
-    cout << endl;
-    insertAtHead(head, 12);
-    insertAtHead(head, 13);
-    print(head);
+    // // insert at head;
+    // cout << endl;
+    // insertAtHead(head, 12);
+    // insertAtHead(head, 13);
+    // print(head);
 
-    insertAtPosition(head, trail, 6, 17);
-    print(head);
-    cout << "Head data " << head->data << endl;
-    cout << "tail data " << trail->data << endl;
+    // insertAtPosition(head, trail, 6, 17);
+    // print(head);
+    // cout << "Head data " << head->data << endl;
+    // cout << "tail data " << trail->data << endl;
 
-    // delete at posintion
-    deletionAtPosition(5, head);
-    print(head);
-    cout << "Head data " << head->data << endl;
+    // // delete at posintion
+    // deletionAtPosition(5, head);
+    // print(head);
+    // cout << "Head data " << head->data << endl;
 
-    // it print the garvage value;
-    cout << "tail data " << trail->data << endl;
+    // // it print the garvage value;
+    // cout << "tail data " << trail->data << endl;
+    if(isCircularLinkList(head)){
+        cout<< "the linked list is circular"<< endl;
+    }
+    else {
+        cout << "the linked list is not circular"<<endl;
+    }
 }
